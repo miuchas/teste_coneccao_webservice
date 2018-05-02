@@ -35,4 +35,29 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+     'client_id' => '',
+     'client_secret' => '',
+     'redirect' => 'http://localhost/tutorial-laravel/public/social/callback/facebook',
+    ],
+
+    'google' => [
+     'client_id' => '',
+     'client_secret' => '',
+     'redirect' => 'http://localhost/tutorial-laravel/public/social/callback/google',
+    ],
+
+
+    // CLIENT_ID : getrakdemo
+    // CLIENT_PASSWORD: getrakdemo
+    // base64_encode('getrakdemo:getrakdemo');
+    // BASE_64 : Z2V0cmFrZGVtbzpnZXRyYWtkZW1v
+
+    'getrack' => [
+      'grant_type'=>'password',
+      'Content-Type' => 'application/ x-www-form-urlencoded;charset=UTF-8',
+      'Authorization' => base64_encode("candidato:12345678"),
+      'redirect' => 'https://api.getrak.com/newkoauth/oauth/token',
+    ],
+
 ];
