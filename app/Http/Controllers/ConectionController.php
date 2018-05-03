@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\cars;
+use App\userToken;
 use Auth;
 
 class ConectionController extends Controller
 {
   public function takeUserToken(){
-    $resp = ConectionController::conectionByCurl(
-      env("CONECTION_GETRAK_CLIENT_ID"),
-      env("CONECTION_GETRAK_CLIENT_PASSWD"),
-      env("CONECTION_GETRAK_BASE_64")
-    );
-    //valores token
-    // var_dump($resp->access_token);
-    // var_dump($resp->token_type);
-    // var_dump($resp->expires_in);
-    // var_dump($resp->scope);
-    // var_dump($resp->jti);
-    return $resp->access_token;
+    $cons = (new userToken)->buscaToken(env("CONECTION_GETRAK_CLIENT_ID"));
+
+    if( count($cons) > 0){
+      return $cons->access_token;
+    }
+    else{
+      $resp = ConectionController::conectionByCurl(
+        env("CONECTION_GETRAK_CLIENT_ID"),
+        env("CONECTION_GETRAK_CLIENT_PASSWD"),
+        env("CONECTION_GETRAK_BASE_64")
+      );
+      (new userToken)->salvaToken($resp);
+      return $resp->access_token;
+    }
   }
 
   public function paradaVeiculo($id, $dataIni, $dataFim){
@@ -65,7 +68,7 @@ class ConectionController extends Controller
   public function listaVeiculos(){
     $url = 'https://api.getrak.com/v0.1/public/localizacoes';
     $resp = ConectionController::conectionGetByCurl($url);
-    // var_dump($resp);
+    var_dump($resp);
     (new cars)->salvaCarros($resp);
   }
 

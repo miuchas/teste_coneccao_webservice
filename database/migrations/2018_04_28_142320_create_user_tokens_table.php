@@ -15,11 +15,12 @@ class CreateUserTokensTable extends Migration
     {
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('access_token');
+            $table->text('access_token');
             $table->string('token_type');
             $table->integer('expires_in');
             $table->string('scope');
             $table->string('jti');
+            $table->string('id_cliente');
             $table->timestamps();
         });
     }

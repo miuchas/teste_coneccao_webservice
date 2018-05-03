@@ -9,7 +9,7 @@ class cars extends Model
   public function buscaCarro($id){
     $cons = cars::where('id_veiculo', $id)->get();
 
-    if( count($cons) > 0){ return false; }
+    if( count($cons) > 0 ){ return false; }
     else return true;
   }
 
