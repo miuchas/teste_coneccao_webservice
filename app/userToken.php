@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class userToken extends Model
 {
   public function buscaToken($usuario){
+    // DB::connection("mysql")->select('select access_token from user_tokens where addtime(updated_at, SEC_TO_TIME(expires_in)) < CURRENT_TIMESTAMP and id_cliente="candidato@getrak"');
     return userToken::where('id_cliente', $usuario)->first();
   }
 
