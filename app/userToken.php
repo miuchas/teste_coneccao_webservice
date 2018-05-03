@@ -10,14 +10,15 @@ class userToken extends Model
   public function buscaToken($usuario){
     //testa se o token ainda tem validade
     $token = DB::connection("mysql")->select('select access_token from user_tokens where addtime(updated_at, SEC_TO_TIME(expires_in)) > CURRENT_TIMESTAMP and id_cliente="'.$usuario.'"');
-    return $token[0]->access_token;
+    if(count($token) > 0){ return $token[0]->access_token; }
+    else{ return ""; }
   }
 
   public function salvaToken($array_token, $usuario){
     //testa se ja existe token
     $cons = userToken::buscaToken($usuario);
 
-    if( count($cons) > 0 ){
+    if( $cons != "" ){
       return $cons;
     }
     else{

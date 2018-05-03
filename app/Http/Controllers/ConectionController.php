@@ -14,11 +14,11 @@ class ConectionController extends Controller
     $usuario = env("CONECTION_GETRAK_CLIENT_ID");
     $cons = (new userToken)->buscaToken($usuario);
 
-    if( count($cons) > 0){
+    if( $cons != "" ){
       return $cons;
     }
     else{
-      $resp = ConectionController::conectionByCurl(
+      $resp = ConectionController::conectionPostByCurl(
         env("CONECTION_GETRAK_CLIENT_ID"),
         env("CONECTION_GETRAK_CLIENT_PASSWD"),
         env("CONECTION_GETRAK_BASE_64")
@@ -73,7 +73,7 @@ class ConectionController extends Controller
     (new cars)->salvaCarros($resp);
   }
 
-  public function conectionByCurl($username, $password, $base64){
+  public function conectionPostByCurl($username, $password, $base64){
     $params=
       'grant_type=password&'.
       'username='.$username.'&'.

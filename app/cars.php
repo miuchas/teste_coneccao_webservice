@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class cars extends Model
 {
   public function buscaCarro($id){
-    $cons = cars::where('id_veiculo', $id)->get();
+    $cons = cars::where('id_veiculo', $id)->first();
 
     if( count($cons) > 0 ){ return false; }
     else return true;
