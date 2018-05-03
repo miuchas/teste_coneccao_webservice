@@ -11,10 +11,11 @@ use Auth;
 class ConectionController extends Controller
 {
   public function takeUserToken(){
-    $cons = (new userToken)->buscaToken(env("CONECTION_GETRAK_CLIENT_ID"));
+    $usuario = env("CONECTION_GETRAK_CLIENT_ID");
+    $cons = (new userToken)->buscaToken($usuario);
 
     if( count($cons) > 0){
-      return $cons->access_token;
+      return $cons;
     }
     else{
       $resp = ConectionController::conectionByCurl(
@@ -22,7 +23,7 @@ class ConectionController extends Controller
         env("CONECTION_GETRAK_CLIENT_PASSWD"),
         env("CONECTION_GETRAK_BASE_64")
       );
-      (new userToken)->salvaToken($resp);
+      (new userToken)->salvaToken($resp, $usuario);
       return $resp->access_token;
     }
   }
