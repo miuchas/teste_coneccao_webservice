@@ -4,14 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\cars;
 use Auth;
-use Socialite;
-
-use SimpleXMLElement;
-use SoapClient;
-use XMLWriter;
-use SoapVar;
-use Log;
 
 class ConectionController extends Controller
 {
@@ -28,6 +22,51 @@ class ConectionController extends Controller
     // var_dump($resp->scope);
     // var_dump($resp->jti);
     return $resp->access_token;
+  }
+
+  public function paradaVeiculo($id, $dataIni, $dataFim){
+   $url = 'https://api.getrak.com/v0.1/public/deslocamentos/'.$id."/".$dataIni."/".$dataFim;
+   $resp = ConectionController::conectionGetByCurl($url);
+   var_dump($resp);
+  }
+
+  public function trajetoVeiculo($id, $dataIni, $dataFim){
+    $url = 'https://api.getrak.com/v0.1/public/trajetos/'.$id."/".$dataIni."/".$dataFim;
+    $resp = ConectionController::conectionGetByCurl($url);
+    var_dump($resp);
+  }
+
+  public function entradasVeiculo($id, $dataIni, $dataFim){
+    $url = 'https://api.getrak.com/v0.1/public/entradas/'.$id."/".$dataIni."/".$dataFim;
+    $resp = ConectionController::conectionGetByCurl($url);
+    var_dump($resp);
+  }
+
+  public function registrosVeiculo($id, $dataIni, $dataFim){
+    $url = 'https://api.getrak.com/v0.1/public/recebidos/'.$id."/".$dataIni."/".$dataFim;
+    $resp = ConectionController::conectionGetByCurl($url);
+    var_dump($resp);
+  }
+
+  public function telemetria(){
+    $limit = 100;//numero de registros
+    $offset = 20;//lista de registros por pagina
+    $url = 'https://api.getrak.com/v0.1/public/telemetrias?limit='.$limit.'&offset='.$offset;
+    $resp = ConectionController::conectionGetByCurl($url);
+    var_dump($resp);
+  }
+
+  public function localizacoesVeiculo($id, $modolo){
+    $url = 'https://api.getrak.com/v0.1/public/localizacoes?id='.$id.'&modulo='.$modolo;
+    $resp = ConectionController::conectionGetByCurl($url);
+    var_dump($resp);
+  }
+
+  public function listaVeiculos(){
+    $url = 'https://api.getrak.com/v0.1/public/localizacoes';
+    $resp = ConectionController::conectionGetByCurl($url);
+    // var_dump($resp);
+    (new cars)->salvaCarros($resp);
   }
 
   public function conectionByCurl($username, $password, $base64){
@@ -96,50 +135,6 @@ class ConectionController extends Controller
       $resp = json_decode($response);
       return $resp;
     }
-  }
-
-  public function paradaVeiculo($id, $dataIni, $dataFim){
-   $url = 'https://api.getrak.com/v0.1/public/deslocamentos/'.$id."/".$dataIni."/".$dataFim;
-   $resp = ConectionController::conectionGetByCurl($url);
-   var_dump($resp);
-  }
-
-  public function trajetoVeiculo($id, $dataIni, $dataFim){
-    $url = 'https://api.getrak.com/v0.1/public/trajetos/'.$id."/".$dataIni."/".$dataFim;
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-  }
-
-  public function entradasVeiculo($id, $dataIni, $dataFim){
-    $url = 'https://api.getrak.com/v0.1/public/entradas/'.$id."/".$dataIni."/".$dataFim;
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-  }
-
-  public function registrosVeiculo($id, $dataIni, $dataFim){
-    $url = 'https://api.getrak.com/v0.1/public/recebidos/'.$id."/".$dataIni."/".$dataFim;
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-  }
-
-  public function telemetria(){
-    $limit = 100;//numero de registros
-    $offset = 20;//lista de registros por pagina
-    $url = 'https://api.getrak.com/v0.1/public/telemetrias?limit='.$limit.'&offset='.$offset;
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-  }
-
-  public function localizacoesVeiculo($id, $modolo){
-    $url = 'https://api.getrak.com/v0.1/public/localizacoes?id='.$id.'&modulo='.$modolo;
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-  }
-
-  public function listaVeiculos(){
-    $url = 'https://api.getrak.com/v0.1/public/localizacoes';
-    $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
   }
 
 }
