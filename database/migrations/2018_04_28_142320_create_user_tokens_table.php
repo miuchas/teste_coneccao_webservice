@@ -17,7 +17,7 @@ class CreateUserTokensTable extends Migration
             $table->increments('id');
             $table->string('access_token');
             $table->string('token_type');
-            $table->string('expires_in');
+            $table->integer('expires_in');
             $table->string('scope');
             $table->string('jti');
             $table->timestamps();
