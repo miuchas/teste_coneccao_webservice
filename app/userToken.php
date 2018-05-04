@@ -9,7 +9,7 @@ class userToken extends Model
 {
   public function buscaToken($usuario){
     //testa se o token ainda tem validade
-    $token = DB::connection("mysql")->select('select access_token from user_tokens where addtime(updated_at, SEC_TO_TIME(expires_in)) > CURRENT_TIMESTAMP and id_cliente="'.$usuario.'"');
+    $token = DB::connection("mysql")->select('select access_token from user_tokens where addtime(updated_at, SEC_TO_TIME(expires_in)) > CURRENT_TIMESTAMP and usuario="'.$usuario.'"');
     if(count($token) > 0){ return $token[0]->access_token; }
     else{ return ""; }
   }
@@ -28,7 +28,7 @@ class userToken extends Model
       $token->expires_in = $array_token->expires_in;
       $token->scope = $array_token->scope;
       $token->jti = $array_token->jti;
-      $token->id_cliente = $usuario;
+      $token->usuario = $usuario;
       $token->save();
 
       return $array_token->access_token;

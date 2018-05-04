@@ -6,16 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class cars extends Model
 {
-  public function buscaCarro($id){
+  public function buscaCarros($usuario){
+    return cars::where('usuario', $usuario)->get();
+  }
+
+  public function verificaExisteCarrro($id){
     $cons = cars::where('id_veiculo', $id)->first();
 
-    if( count($cons) > 0 ){ return false; }
+    if( count($cons) > 0 || $cons != ""){ return false; }
     else return true;
   }
 
-  public function salvaCarros($lista_carros){
+  public function salvaCarros($lista_carros, $usuario){
     foreach ($lista_carros->veiculos as $carro){
-      if(cars::buscaCarro($carro->id_veiculo)){
+      if(cars::verificaExisteCarrro($carro->id_veiculo)){
         $car = new cars;
         $car->id_veiculo = $carro->id_veiculo;
         $car->modulo = $carro->modulo;
@@ -46,6 +50,7 @@ class cars extends Model
         $car->fix = $carro->fix;
         $car->status_online = $carro->status_online;
         $car->tipo = $carro->tipo;
+        $car->usuario = $usuario;
         $car->save();
       }
     }

@@ -14,14 +14,16 @@ class CreateCarPositionsTable extends Migration
     public function up()
     {
         Schema::create('car_positions', function (Blueprint $table) {
-            $table->string('id_cliente');
+            $table->string('carPositions');
+            $table->string('usuario');
+            $table->integer('id_carro');
             $table->integer('conectado');
             $table->integer('deconectado');
             $table->integer('acionamentos');
             $table->float('distancia_percorrida', 8, 2);
             $table->float('vel_max', 8, 2);
             $table->float('vel_med', 8, 2);
-            $table->date('data');
+            $table->string('data');
             $table->timestamps();
         });
     }

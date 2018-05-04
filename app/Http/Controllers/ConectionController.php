@@ -31,25 +31,25 @@ class ConectionController extends Controller
   public function paradaVeiculo($id, $dataIni, $dataFim){
    $url = 'https://api.getrak.com/v0.1/public/deslocamentos/'.$id."/".$dataIni."/".$dataFim;
    $resp = ConectionController::conectionGetByCurl($url);
-   var_dump($resp);
+   return $resp;
   }
 
   public function trajetoVeiculo($id, $dataIni, $dataFim){
     $url = 'https://api.getrak.com/v0.1/public/trajetos/'.$id."/".$dataIni."/".$dataFim;
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
+    return $resp;
   }
 
   public function entradasVeiculo($id, $dataIni, $dataFim){
     $url = 'https://api.getrak.com/v0.1/public/entradas/'.$id."/".$dataIni."/".$dataFim;
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
+    return $resp;
   }
 
   public function registrosVeiculo($id, $dataIni, $dataFim){
     $url = 'https://api.getrak.com/v0.1/public/recebidos/'.$id."/".$dataIni."/".$dataFim;
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
+    return $resp;
   }
 
   public function telemetria(){
@@ -57,20 +57,20 @@ class ConectionController extends Controller
     $offset = 20;//lista de registros por pagina
     $url = 'https://api.getrak.com/v0.1/public/telemetrias?limit='.$limit.'&offset='.$offset;
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
+    return $resp;
   }
 
   public function localizacoesVeiculo($id, $modolo){
     $url = 'https://api.getrak.com/v0.1/public/localizacoes?id='.$id.'&modulo='.$modolo;
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
+    return $resp;
   }
 
   public function listaVeiculos(){
     $url = 'https://api.getrak.com/v0.1/public/localizacoes';
     $resp = ConectionController::conectionGetByCurl($url);
-    var_dump($resp);
-    (new cars)->salvaCarros($resp);
+    $usuario = env("CONECTION_GETRAK_CLIENT_ID");
+    (new cars)->salvaCarros($resp, $usuario);
   }
 
   public function conectionPostByCurl($username, $password, $base64){

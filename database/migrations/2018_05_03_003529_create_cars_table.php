@@ -43,6 +43,7 @@ class CreateCarsTable extends Migration
             $table->string('fix')->nullable();
             $table->string('status_online')->nullable();
             $table->string('tipo')->nullable();
+            $table->string('usuario')->nullable();
             $table->timestamps();
         });
     }

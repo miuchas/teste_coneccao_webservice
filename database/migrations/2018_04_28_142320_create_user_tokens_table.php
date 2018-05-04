@@ -19,7 +19,7 @@ class CreateUserTokensTable extends Migration
             $table->integer('expires_in');
             $table->string('scope');
             $table->string('jti');
-            $table->string('id_cliente');
+            $table->string('usuario');
             $table->timestamps();
         });
     }

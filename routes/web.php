@@ -31,3 +31,6 @@ Route::get("/telemetrias", 'ConectionController@telemetria'); //Relatorio de tel
 
 Route::get("/localizacoes/{id?}/{modolo?}", 'ConectionController@localizacoesVeiculo'); //lista ultima localização do veiculo
 Route::get("/equipamentos", 'ConectionController@listaVeiculos'); //lista veiculos cadastrados
+
+
+Route::get("/resumo-diario/{dataIni?}/{dataFim?}", 'CarPositionsController@takeCarPositions'); //resumo das atividades diarias do veiculo
