@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class carPositions extends Model
 {
 
+  public function carPositions($usuario){
+    return carPositions::where('usuario', $usuario)->get();
+  }
+
   public function carPositionsExist($list_car_pos){
     $cons = carPositions::where('usuario', $list_car_pos['usuario'])->where('id_carro', $list_car_pos['id_carro'])->where('data', $list_car_pos['data'])->first();
     if( count($cons) > 0 || $cons != ""){ return false; }

@@ -8,6 +8,12 @@ use App\cars;
 
 class CarPositionsController extends Controller
 {
+  public function getResumo(){
+    $usuario = env("CONECTION_GETRAK_CLIENT_ID");
+    return (new carPositions)->carPositions($usuario);
+  }
+
+
   public function takeCarPositions($dataIni, $dataFim){
     $usuario = env("CONECTION_GETRAK_CLIENT_ID");
     //confere se todos os veiculos do usuario foram adicionados ao banco
@@ -52,7 +58,7 @@ class CarPositionsController extends Controller
               $velocidade_media += $velocidade;
               $numero_ent_vel ++;
             }
-            
+
             if($reg->alimentacao == 1){ $conectado += 1; }//numero de entradas conectado/desconectado
             else{ $desconectado ++; }
 
